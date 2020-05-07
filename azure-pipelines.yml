@@ -5,14 +5,13 @@
 trigger:
 - master
 
-resources:
-- repo: self
+
 
 variables:
 
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: '7458b593-c0a1-4125-be4a-eb5970fe76ea'
-  imageRepository: 'helloaspnetcore'
+  imageRepository: 'hello-aspnetcore'
   containerRegistry: 'santopa1.azurecr.io'
   dockerfilePath: '**/Dockerfile'
   tag: '$(Build.BuildNumber)'
@@ -52,11 +51,12 @@ stages:
     displayName: Deploy
     pool:
       vmImage: $(vmImageName)
-    environment: 'santopa1helloaspnetcore-3627.default'
+    environment: 'santopa1helloaspnetcore.default'
     strategy:
       runOnce:
         deploy:
           steps:
+          
           - task: KubernetesManifest@0
             displayName: Deploy to Kubernetes cluster
             inputs:
